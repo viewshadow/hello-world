@@ -1,0 +1,408 @@
+
+
+
+
+
+
+
+
+
+第五周作业
+1. 每周六、日上午9:00和下午14：00 来老男孩这里学习(执行程序/server/script/oldboy.sh代替学习) 注：写出定时任务中的格式即可
+* * 09,14 * 6,7 /bin/sh /server/script/oldboy.sh
+
+2. 每天晚上12点，打包站点目录/var/www/html 备份到/data目录下（每次备份按时间生成不同的备份包） 注：写出步骤 1.脚本内容 2.定时任务配置 3.执行结果 4.对应的日志
+00 00 * * * 
+
+3. 每隔2个小时将/etc/services文件打包备份到/tmp下（最好每次备份成不同的备份包）。 注：写出步骤 1.脚本内容 2.定时任务配置 3.执行结果 4.对应的日志
+00 */2 * * *
+
+4. 添加一个虚拟用户nginx并指定uid为888，请给出命令
+useradd -u 888 -s /sbin/nologin -M nginx
+
+5. 给oldboy用户授权以root身份运行ls,touch,mkdir,vim这几个命令。给出配置方法（sudo）
+使用visudo命令编辑修改/etc/sudoers配置文件，在最后一行添加
+oldboy ALL=(root) /usr/bin/ls,/usr/bin/touch,/usr/bin/mkdir,/usr/bin/vim
+
+6. 把oldboy目录及其子目录的属主改为oldboy,组改为root,请给出命令。
+chown -R oldboy:root oldboy
+
+7. 如何查看用户的uid及属于的组信息。
+id 用户名
+
+8. 简述登录到某个用户之后提示-bash-4.1$这种错误如何解决。写出解决过程。
+原因: 与这个用户有关的家目录下面的环境变量文件 .bashrc .bash_profile 丢失
+解决方法：
+su - 用户名
+cp /etc/skel/.bash* ~
+重新登录即可
+
+9. 说出raid0 raid1 raid5 raid10的区别和特点
+	最少需要几块硬盘	安全冗余	可用容量	性能	使用场景	举例
+raid 0	1	最低	所有硬盘容量的和	读写最快	不求安全，只要速度	数据库从库
+raid 1	2	100%	一半（两块硬盘容量的和）	写入速度慢，读取OK	追求安全	系统盘，
+raid 5	3	最多损坏一块	损失一块盘的容量	写入性能不好，读取速度ok	对安全有要求，对速度要求不高	普遍的数据库/存储
+raid 10	4	可以损坏一半	损失所有硬盘一半的容量	读写很快	对于安全和性能都有要求	数据库主库，存储
+
+10. 把磁盘/dev/sdb(共100M)全部空间作为分区，并永久挂载到/oldboydata目录的过程。 注：要写上每个步骤 #分区，格式化，挂载，永久挂载
+
+
+
+
+第一周作业
+1、你用过的服务器型号有哪些？配置如何？
+ 1.型号：HP DL380 Gen9 E5-2650 V4 服务器
+   CPU：Intel 至强 E5-2650v4
+		2.2Ghz 2路 12核
+   内存：32G
+   硬盘：3*300G
+   电源：2*800W
+   外形：2U机架式
+ 2.型号：IBM System x3650 M4
+   CPU：Intel 至强 E5-2600
+		2Ghz 2路 8核
+   内存：8G
+   硬盘：3*300G
+   电源：2*750W
+   外形：2U机架式
+ 
+
+2、程序、进程和守护进程的区别
+  程序：存放在硬盘上的可执行文件
+  进程：正在运行的程序
+  守护进程：一直在运行的程序，不受终端退出登录影响
+  
+3、提升用户体验的网站解决方案 
+  1.在用户数据写入多的情况下，将用户数据存放在内存中，提高并发数量。
+  2.如果浏览数据多，则把写入数据直接写入到硬盘，读取数据放在内存中，提高读取速度。
+  
+4、buffer与cache区别？
+  cache：缓存区，用来存放需要读取的数据
+  buffer：缓冲区，用来存放需要写入的数据
+  
+5、什么是GNU,GPL? 
+  GNU，GNU is Not Unix，是一个自由软件工程项目。重要组件包括Emacs,gcc,bash,gawk等。
+  GPL，GNU通用公共许可证（GNU General Public License），是GNU的一个协议条款。中心意思是，自由软件由开发者提供源代码，任何用户都有权使用、拷贝、扩散、修改该软件，同时用户也有义务将自己修改过的程序代码公开。
+  
+6、Linux常见发行版本及使用场景
+  Debian 适合系统管理员和高级用户。
+  Ubuntu Debian衍生款，免费，对新手用户很友好，用于服务器、云计算、PC。
+  RHEL 红帽企业级Linux，系统管理员的第一选择。
+  CentOS RHEL免费版，适合教学、测试。
+  Fedora RHEL测试版，适合想尝试最先进的技术的人。
+  Red Flag 红旗Linux 中国较大、较成熟的发行版，产品丰富，包括桌面版、工作站版、数据中心服务器版、HA集群版和红旗嵌入式Linux等产品。
+  Linux Deepin 目前中国最活跃的Linux发行版，好用。
+  
+7、简述CentOS与RedHat区别
+  Redhat是红帽的商业发行版，收费，提供有偿支撑。
+  centos是Redhat去掉logo和收费软件的克隆版本，不提供支撑。
+  
+8、什么是ip地址，端口号
+  IP地址是指互联网协议地址，互联网上的每一个网络和每一台主机都需要一个世界上独一无二的IP地址。
+  端口号，端口这里指逻辑意义上用于区分服务的端口，端口号的范围从0到65535，比如用于浏览网页服务的80端口，用于FTP服务的21端口等。
+  IP地址相当于你家的门牌号，用来区分地址。端口号相当于你家的房间，厨房客厅卧室，用来区分服务。
+  
+9、远程连接排错过程
+  1.检查物理网络是否通畅（网线网卡，ip地址是否正确）
+    ping 对端ip地址
+  2.防火墙或selinux是否处于开启状态
+    service iptables stop （关闭防火墙）
+	sed 's#enabled#disabled#g' /etc/selinux/config
+	setenforce 0 （关闭selinux）
+  3.检查ssh服务是否开启，端口是否改变
+    ss -lntup | grep ssh
+	cat /etc/ssh/sshd_config | grep port -i
+
+
+第二周作业
+1、已知文件test.txt内容 
+oldboy
+test
+lidao
+请给出输出test.txt文件内容时，不包含oldboy字符串的命令（至少两种方法）
+  1.grep -v "oldboy" test.txt
+  2.sed '/oldboy/d' test.txt
+  3.awk '!/oldboy/' test.txt
+
+2、给rm命令设置一个别名，运行rm命令的时候提示command not found（请写出配置步骤）
+  1.查看rm当前别名
+    alias rm
+  2.临时修改rm别名
+    alias rm='echo command not found'
+  3.永久修改rm别名
+    echo "alias rm='echo command not found'">>/etc/profile
+  4.注释/root/.bashrc文件中rm别名配置
+
+3、显示/etc/services文件的第20到第30行（至少2种方法）
+  1.sed -n '20,30p' /etc/services
+  2.awk "NR==20,NR==30" /etc/services
+  3.cat -n /etc/services | head -30 | tail -11
+  
+4、把/oldboy目录下面所有以.log结尾的文件中oldboy替换为oldgirl（至少2种方法）
+  1.sed 's#oldboy#oldgirl#g' /oldboy/*.log -i
+  2.perl -pi -e "s#oldboy#oldgirl#g" /oldboy/*.log
+
+5、如何关闭 iptables
+  1.临时关闭（运行两次关闭命令确保关闭）
+    /etc/init.d/iptables stop
+    /etc/init.d/iptables stop
+  2.永久关闭（取消开机自动启动）
+    chkconfig iptables off
+
+6、在Linux中显示中文乱码如何解决？
+中文显示乱码的原因是linux使用的字符集和远程连接工具使用的字符集不同导致的。将linux和连接工具使用的字符集修改为相同的即可。
+修改linux字符集方法：
+a)	查看当前字符集
+i.	echo $LANG
+b)	临时修改
+i.	export LANG=en_US.UTF-8
+c)	永久修改	
+i.	sed -i 's#^LANG.*$#LANG="en_US.UTF-8"#g' /etc/sysconfig/i18n
+ii.	source /etc/sysconfig/i18n
+修改远程连接工具方法：（以xshell为例）
+依次点击 文件 -> 属性 -> 终端，在编码一栏选择对应的字符集确定保存。
+
+
+7、解释下下面网卡文件每一行的含义
+HWADDR=00:0c:29:1e:67:61	#MAC地址
+ONBOOT=yes                  #系统启动时是否启动网卡
+BOOTPROTO=none              #网卡获取ip地址的方式（none/statics静态地址，dhcp自动获取地址）
+IPADDR=10.0.0.200           #当前网卡IP地址
+NETMASK=255.255.255.0       #子网掩码
+GATEWAY=10.0.0.2            #网关
+DNS1=223.5.5.5              #首选DNS域名解析服务器地址
+DNS2=223.6.6.6              #次选DNS域名解析服务器地址
+
+8、简述Linux系统无法上网如何排查?
+1.验证是否可以上网
+  ping www.baidu.com
+2.验证是否DNS故障
+  ping 223.5.5.5
+  如果正常，则配置DNS，重启网卡。
+  如果不正常，则检查网卡状态和配置。
+
+9、说出下面几个文件的作用
+/etc/hosts          #主机名静态解析表,网站更新,域名测试,对主机名和域名进行解析,优先级高于DNS
+/etc/fstab          #开机时自动挂载磁盘的文件,第一列表示设备/分区,第二列表示挂载点
+/var/log/messages   #系统默认日志信息
+/var/log/secure     #系统用户的登录信息
+
+10、简单描述Linux下面安装软件的几种方法
+3种
+a)	yum install 软件名   #一键安装，自动安装依赖
+b)	rpm	软件包名         #有什么装什么，缺什么手动找什么
+c)	编译安装。进入解压后的安装包
+	./configure
+	make
+	make install
+#	rpm -qa		查看软件是否安装
+
+
+
+
+
+第一次作业
+1、我想在/data/oldboyedu 目录下面创建 一个oldboy.txt 文件
+
+    [root@oldboyedu ~]# cd /data/oldboyedu
+    -bash: cd: /data/oldboyedu: No such file or directory
+1.为何出现这样的错误
+2.如何解决这个错误呢？
+
+1.系统中没有/data/oldboyedu 这个目录
+2.mkdir -p /data/oldboyedu   #创建该目录​
+
+
+2、接上题,向oldboy.txt 加入内容 "I love studying Linux." (不少于2 种方法)
+1. echo "I love studying Linux.">>oldboy.txt
+2. cat<<EOF>>oldboy.txt
+> I love studying Linux.
+> EOF
+
+
+3、说说这些特殊符号含义: > >> 2> 2>> #(井号) .(点) ..(两个点)  $()   ~
+>	重定向符号，先清空文件内容，然后追加到文件最后
+>>	追加重定向，追加内容到文件结尾
+2>	错误输出重定向
+2>>	错误输出追加重定向
+#	注释
+.	当前目录
+..	父目录
+$()	先运行里面的命令，把结果留下
+~	当前用户家目录
+
+
+4、入职新公司，老大让你在服务器上限制rm 命令，当用户输入rm 命令时候提示”rm command is not allowed to use.” 请问实现的步骤是？
+  1.查看rm当前别名
+    alias rm
+  2.临时修改rm别名
+    alias rm='echo rm command is not allowed to use.'
+  3.永久修改rm别名
+    echo "alias rm='echo rm command is not allowed to use.'">>/etc/profile
+  4.注释/root/.bashrc文件中rm别名配置
+
+
+5、取出文件ett.txt 的第30 到40 行的内容。
+  1.sed -n '20,30p' ett.txt
+  2.awk "NR==20,NR==30" ett.txt
+  3.cat -n ett.txt | head -30 | tail -11
+
+
+6、查找/oldboy 下所有以log 结尾的大于1M 的文件复制到/tmp 下(至少2种方法）
+1. cp `find /oldboy/*.log -size +1M` /tmp
+2. cp $(find /oldboy -name "*.log" -size +1M) /tmp
+
+
+7、什么是linux 的运行级别，请描述linux 的运行级别不同数字的含义?
+运行级别是linux操作系统启动时选择的不同模式或操作
+运行级别含义
+0	关机，不要把运行级别设置为0
+1	单用户模式，root用户密码忘记了
+2	多用户模式，没有nfs
+3	完全的多用户模式，命令行模式，文本模式
+4	未使用
+5	x11，桌面模式
+6	重启，不要把运行级别设置为6
+
+
+8、请描述buffer 和cache 的区别
+  cache：缓存区，用来存放需要读取的数据
+  buffer：缓冲区，用来存放需要写入的数据
+
+
+9、无法远程连接Linux服务器了，请简述拍错过程
+  1.检查物理网络是否通畅（网线网卡，ip地址是否正确）
+    ping 对端ip地址
+  2.防火墙或selinux是否处于开启状态
+    service iptables stop （关闭防火墙）
+	sed 's#enabled#disabled#g' /etc/selinux/config
+	setenforce 0 （关闭selinux）
+  3.检查ssh服务是否开启，端口是否改变
+    ss -lntup | grep ssh
+	cat /etc/ssh/sshd_config | grep port -i
+
+
+10、如何修改Linux启动级别为字符模式并永久生效，如何临时、永久关闭selinux及防火墙，请分别写出操作方法
+1. 永久修改linux启动级别
+   将/etc/inittab文件内容修改为：
+   id:3:initdefault:
+
+2. 关闭 selinux 和防火墙
+
+selinux
+setenforce 0	临时关闭
+修改/etc/selinux/config文件中SELINUX=disable	永久关闭
+
+iptables	防火墙
+查看状态	/etc/init.d/iptables status
+临时关闭防火墙	/etc/init.d/iptables stop	关闭两次！！！
+取消开机自启动 永久关闭
+查看	chkconfig |grep iptables
+关闭	chkconfig iptables off
+
+
+
+
+第三周作业
+1、文件删除原理（即Linux下面文件被彻底删除条件）
+a)	删除文件和所有相关的硬链接文件-rm
+b)	停止所有调用该文件的进程
+即：硬链接数为0，进程调用数为0
+
+2、软链接与硬链接区别
+1.	创建方式
+	a)	默认不带情况下，ln命令创建的是硬链接，带-s参数的ln命令创建的是软链接
+2.	含义
+	a)	硬链接文件与原文件的inode节点号相同，而软链接文件相当于window下面的快捷方式，inode节点号与原文件不同
+3.	特点
+	a)	不能对目录创建硬链接，但可以创建软链接，对目录的软链接会经常被用到
+	b)	软链接可以跨文件系统，硬链接不可以跨文件系统
+4.	删除对文件的影响
+	a)	删除软链接文件，对原文件和硬链接文件没有影响
+	b)	删除文件的硬链接，对原文件和软链接文件没有影响
+	c)	删除原文件，对硬链接文件没有影响，软链接会失效
+	d)	同时删除原文件和硬链接文件，整个文件才会被真正删除
+
+3、磁盘空间不足系列及排错过程（常见磁盘满了原因及对应的排查过程）
+a)	block满了
+b)	block满了后文件没有被彻底删除
+c)	inode满了
+1. df -h 显示100%
+	i.	du -sh /*	一级一级目录排查下去，定位到占用磁盘较大的目录或文件，确认可以删除后进行删除
+2. df -h显示100%，但是du -sh 显示的文件大小没有达到磁盘大小
+	i.	lsof | grep delete	查看调用硬链接数为0的进程
+	ii.	重启对应服务
+3. df -i 查看inode的使用情况
+	i.	删除小文件，常见目录/var/spool/postfix/maildrop
+	ii.	for i in /*; do echo $i; find $i | wc -l; done	排查文件数量多的目录，确认可以删除后进行删除
+
+4、/etc/passwd 每一列的含义
+1.	用户名
+2.	密码
+3.	UID
+4.	GID
+5.	用户的说明信息，默认为空
+6.	用户家目录
+7.	用户使用的shell，命令解释器
+
+5、Linux三种时间都有什么及对应的含义
+a)	mtime	modified time 文件修改时间
+b)	atime	access time	文件访问时间
+c)	ctime	change time	属性修改时间
+
+6、请概述linux启动过程
+a)	摁电源，开机键
+b)	开机自检 BIOS 硬件检查 CPU，内存，硬盘等
+c)	MBR引导
+d)	GRUB菜单	选择不同的内核 可以在此进入单用户模式改root密码
+e)	加载内核kernel	放在内存
+f)	运行 /sbin/init 进程	Linux运行的第一个进程
+g)	读取/etc/inittab配置文件，进入配置的运行级别
+h)	执行/etc/rc.d/rc.sysinit脚本		Linux系统初始化，设置主机名，设置ip地址
+i)	执行/etc/rc.d/rc脚本	根据系统运行级别，启动对应的开机自启软件
+j)	启动 /bin/login mingetty进程	登录界面
+
+7、请说明Linux远程连接服务器无法连接的排查过程
+1.检查物理网络是否通畅（网线网卡，ip地址是否正确）
+  ping 对端ip地址
+2.防火墙或selinux是否处于开启状态
+  service iptables stop （关闭防火墙）
+  sed 's#enabled#disabled#g' /etc/selinux/config
+  setenforce 0 （关闭selinux）
+3.检查ssh服务是否开启，端口是否改变
+  ss -lntup | grep ssh
+  cat /etc/ssh/sshd_config | grep port -i
+
+8、请描述Linux无法上网的排查过程
+1.验证是否可以上网
+  ping www.baidu.com
+2.验证是否DNS故障
+  ping 223.5.5.5
+  如果2通1不通，则配置DNS，重启网卡。
+  如果都不通，则检查网卡状态和配置。
+
+9、简述Linux下面常见的安装软件的方法 
+3种
+a)    yum install 软件名	#一键安装，自动安装依赖
+b)    rpm    软件包名		#有什么装什么，缺什么手动找什么
+c)    编译安装。进入解压后的安装包
+    ./configure
+    make
+    make install
+#    rpm -qa        查看软件是否安装
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
