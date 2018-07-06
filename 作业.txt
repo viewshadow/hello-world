@@ -9,13 +9,29 @@
 
 第五周作业
 1. 每周六、日上午9:00和下午14：00 来老男孩这里学习(执行程序/server/script/oldboy.sh代替学习) 注：写出定时任务中的格式即可
-* * 09,14 * 6,7 /bin/sh /server/script/oldboy.sh
+* * 09,14 * 6,7 /bin/sh /server/script/oldboy.sh >/dev/null 2>&1
 
 2. 每天晚上12点，打包站点目录/var/www/html 备份到/data目录下（每次备份按时间生成不同的备份包） 注：写出步骤 1.脚本内容 2.定时任务配置 3.执行结果 4.对应的日志
-00 00 * * * 
+# 脚本内容
+#!/bin/bash
+tar cvf /data/html-`date +%F_%w`.tar /var/www/html
+# 定时任务配置
+00 00 * * * /bin/sh /server/script/tar_days.sh >/dev/null 2>&1
+# 执行结果
+
+# 对应的日志
+
 
 3. 每隔2个小时将/etc/services文件打包备份到/tmp下（最好每次备份成不同的备份包）。 注：写出步骤 1.脚本内容 2.定时任务配置 3.执行结果 4.对应的日志
-00 */2 * * *
+# 脚本内容
+#!/bin/bash
+tar cvf /tmp/services-`date +%F_%H`.tar /etc/services
+# 定时任务配置
+00 */2 * * * /bin/sh /server/script/tar_hours.sh >/dev/null 2>&1
+# 执行结果
+
+# 对应的日志
+
 
 4. 添加一个虚拟用户nginx并指定uid为888，请给出命令
 useradd -u 888 -s /sbin/nologin -M nginx
@@ -45,8 +61,21 @@ raid 5	3	最多损坏一块	损失一块盘的容量	写入性能不好，读取
 raid 10	4	可以损坏一半	损失所有硬盘一半的容量	读写很快	对于安全和性能都有要求	数据库主库，存储
 
 10. 把磁盘/dev/sdb(共100M)全部空间作为分区，并永久挂载到/oldboydata目录的过程。 注：要写上每个步骤 #分区，格式化，挂载，永久挂载
-
-
+# 分区
+fdisk /dev/sdb 
+	n 
+	p 
+	1
+	回车
+	回车
+	w 
+# 格式化
+mkfs -t ext3 /dev/sdb1
+# 挂载 
+mkdir -p /oldboydata 
+mount /dev/sdb1 /oldboydata 
+# 永久挂载 
+echo "/dev/sdb1  /oldboydata  ext3  defaults  0  0">>/etc/fstab
 
 
 第一周作业
