@@ -1,0 +1,90 @@
+95187转2110
+
+18629012579
+
+415415
+
+47.94.21.224
+
+远程连接密码： 415415
+
+警告! 远程连接密码只出现一次，您以后每次远程连接登录时都需要输入该密码，请做好记录存档工作。
+
+linux登录密码
+Que1805!
+
+mysql登录密码
+Que1805*
+
+
+
+
+天润
+阿里云账户：sx金翅雀信息技术有限公司
+密码：SYSTKJ@126.COM
+
+118.31.54.148
+root   quelingfei888*
+root	1234
+
+
+# 共享目录
+\\Desktop-mdl5270\e   Avengers que888*
+
+
+batman 个人
+
+47.93.220.19
+远程连接密码： 254535
+
+rds 
+mysql -h rm-bp15i0u844gm5jtbd.mysql.rds.aliyuncs.com -uroot2 -pQue1805*
+
+Thor 机器信息
+
+ECS:
+47.95.208.191
+root
+Que1805!
+
+RDS:
+内网地址:rm-bp1ru6jnyl6501k1k.mysql.rds.aliyuncs.com
+外网地址:rm-bp1ru6jnyl6501k1k7o.mysql.rds.aliyuncs.com
+root
+Que1805*
+
+
+正式
+
+ECS:
+118.31.54.148
+root
+Que1805!
+
+RDS:
+内网地址:rm-bp15i0u844gm5jtbd.mysql.rds.aliyuncs.com
+外网地址:rm-bp15i0u844gm5jtbdno.mysql.rds.aliyuncs.com
+DMS连接串：rm-bp15i0u844gm5jtbd.mysql.rds.aliyuncs.com:3306
+root2
+Que1805*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
