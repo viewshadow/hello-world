@@ -13,25 +13,37 @@
 
 2. 每天晚上12点，打包站点目录/var/www/html 备份到/data目录下（每次备份按时间生成不同的备份包） 注：写出步骤 1.脚本内容 2.定时任务配置 3.执行结果 4.对应的日志
 # 脚本内容
+[root@gr ~]# cat /script/tar_days.sh 
 #!/bin/bash
 tar cvf /data/html-`date +%F_%w`.tar /var/www/html
 # 定时任务配置
-00 00 * * * /bin/sh /server/script/tar_days.sh >/dev/null 2>&1
+[root@gr ~]# crontab -l
+00 00 * * * /bin/sh /script/tar_days.sh >/dev/null 2>&1
 # 执行结果
-
+[root@gr ~]# ll /data/
+total 12
+-rw-r--r--. 1 root root 10240 Jul  9 16:05 html-2018-07-09_1.tar
 # 对应的日志
+[root@gr ~]# tail /var/log/cron 
+Jul  9 16:05:01 gr CROND[1184]: (root) CMD (/bin/sh /script/tar_days.sh >/dev/null 2>&1)
+Jul  9 16:06:01 gr CROND[1192]: (root) CMD (/bin/sh /script/tar_days.sh >/dev/null 2>&1)
 
 
 3. 每隔2个小时将/etc/services文件打包备份到/tmp下（最好每次备份成不同的备份包）。 注：写出步骤 1.脚本内容 2.定时任务配置 3.执行结果 4.对应的日志
 # 脚本内容
+[root@gr ~]# cat /script/tar_hours.sh
 #!/bin/bash
 tar cvf /tmp/services-`date +%F_%H`.tar /etc/services
 # 定时任务配置
-00 */2 * * * /bin/sh /server/script/tar_hours.sh >/dev/null 2>&1
+[root@gr ~]# crontab -l
+00 */2 * * * /bin/sh /script/tar_hours.sh >/dev/null 2>&1
 # 执行结果
-
+[root@gr ~]# ll /tmp/ser*
+-rw-r--r--. 1 root root 675840 Jul  9 16:27 /tmp/services-2018-07-09_16.tar
 # 对应的日志
-
+[root@gr ~]# tail /var/log/cron 
+Jul  9 16:25:01 gr crond[488]: (root) RELOAD (/var/spool/cron/root)
+Jul  9 16:25:01 gr CROND[8435]: (root) CMD (/bin/sh /script/tar_hours.sh >/dev/null 2>&1)
 
 4. 添加一个虚拟用户nginx并指定uid为888，请给出命令
 useradd -u 888 -s /sbin/nologin -M nginx
