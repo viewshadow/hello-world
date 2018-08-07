@@ -2,9 +2,92 @@
 
 
 
+第三次考试题
+1. 说说root用户密码忘记如何解决及解决过程
+
+
+2. 取出下面命令中的ip地址（至少2种方法）
+    [root@oldboyedu01-nb ~]# ip a s eth0 
+    2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
+        link/ether 00:0c:29:1e:67:61 brd ff:ff:ff:ff:ff:ff
+        inet 10.0.0.200/24 brd 10.0.0.255 scope global eth0
+        inet6 fe80::20c:29ff:fe1e:6761/64 scope link 
+           valid_lft forever preferred_lft forever
+		   
+
+3. 通过脚本方式完成添加10个用户stu01..stu10并设置8为随机密码
+
+
+4. 说出tcp三次握手和四次断开中链接状态是怎么变化的
+
+
+5. 简述OSI七层模型具体名称
+
+
+6. 如何统计出系统中谁在破解你的密码及破解的次数（分析/var/log/secure）
+
+
+7. 请问你是否遇到过swap不足的情况，怎么解决的?
+
+
+8. 如何排查Linux无法上网故障
 
 
 
+
+第六周作业
+1. shell题目:如果/oldboy不存在则创建他(不能用if判断)
+
+
+2. 书写一个判断语句: 如果脚本参数个数 不等于2则显示input error并退出脚本
+
+
+3. 按要求写一个脚本:
+    命令行传递两个参数
+    判断参数个数如果不是2则显示使用帮助并退出脚本
+    计算两个参数的加减乘除四则运算并显示结果
+
+
+4. 如何显示出如下字符串:
+    welcome to 01oldboyedu.com class01
+    welcome to 02oldboyedu.com class02
+    welcome to 03oldboyedu.com class03
+    welcome to 04oldboyedu.com class04
+    welcome to 05oldboyedu.com class05
+    welcome to 06oldboyedu.com class06
+    welcome to 07oldboyedu.com class07
+    welcome to 08oldboyedu.com class08
+    welcome to 09oldboyedu.com class09
+    welcome to 10oldboyedu.com class10
+
+
+5. 不显示文件中的空行或只有空格的行（至少三种方法）
+
+
+6. 把文件中每一对{}中的oldboy替换为oldgirl.
+
+    oldboy
+    {
+    oldboy
+    oldgirl
+    }
+    oldboy
+    {
+    oldboy
+    oldgirl
+    }
+
+
+7. 显示出/etc/passwd中以0或5开头的uid的用户名和他使用的命令解释器
+
+
+8. 叙述并绘图表示三次握手四次挥手过程
+
+
+9. 叙述DNS解析过程
+
+	
+	
 
 
 第五周作业
