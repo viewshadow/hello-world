@@ -6,3 +6,11 @@ http://rogerdudler.github.io/git-guide/index.zh.html
 
 GitHub上的开源电子书
 https://www.zhihu.com/question/38836382
+
+
+
+技术贴
+我有个问题想问问大家，就是整个的项目流程是怎么样的，还有就是node和react是怎么交互的？
+https://www.kancloud.cn/kancloud/create-voting-app/63978
+http://www.qingpingshan.com/jb/javascript/104558.html
+https://github.com/alsotang/node-lessons
