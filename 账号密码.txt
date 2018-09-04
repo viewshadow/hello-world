@@ -60,6 +60,8 @@ ECS:
 118.31.54.148
 root
 Que1805!
+远程连接密码： 992283
+
 
 RDS:
 内网地址:rm-bp15i0u844gm5jtbd.mysql.rds.aliyuncs.com
@@ -67,24 +69,4 @@ RDS:
 DMS连接串：rm-bp15i0u844gm5jtbd.mysql.rds.aliyuncs.com:3306
 root2
 Que1805*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
